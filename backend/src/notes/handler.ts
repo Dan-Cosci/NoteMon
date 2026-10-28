@@ -1,6 +1,6 @@
 import { Database } from "bun:sqlite"
 import { Hono } from "hono"
-import { repository } from "./repo";
+import { Note, NoteResponse, repository } from "./repo";
 import { service } from "./service";
 
 export const handler = (db: Database) => {
@@ -9,16 +9,28 @@ export const handler = (db: Database) => {
   const repo = repository(db)
   const svc = service(repo)
 
-
   // routes
   r.get("/", (c) => {
-    return c.json(svc.getNotes())
+
+    const data = svc.getNotes()
+    return c.json(data)
   })
-  r.post("/", (c) => {
-    return c.json("wip post")
+  r.post("/", async (c) => {
+
+    const note = await c.req.json<NoteResponse>()
+    const data = await svc.addNote(note)
+
+    return c.json(data)
   })
   r.delete("/:id", (c) => {
-    return c.json("wip delete")
+    const id = c.req.param("id")
+    const data = svc.deleteNote(id)
+
+    return c.json(data)
+  })
+
+  r.patch("/:id", async (c) => {
+
   })
 
   return r
