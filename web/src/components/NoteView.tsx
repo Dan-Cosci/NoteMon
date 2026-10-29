@@ -1,3 +1,5 @@
+import { getNotes } from "@/services/notes"
+import { useEffect, useState } from "react"
 
 interface CardProp{
   title: string
@@ -22,9 +24,25 @@ const Cards = ( prop: CardProp ) => {
 }
 
 function NoteView() {
+
+
+  const [cards, setCards] = useState<CardProp[]>([])
+
+  useEffect(() => {
+    const init = async () => {
+      const data = await getNotes()
+      console.log(data)
+
+      setCards(data ?? [])
+
+    }
+
+    init()
+  }, [])
+
   return (
     <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-min grow gap-2 p-2 ">
-      {data.map((it)=>(Cards(it)) )}
+      {cards.map((it)=>(Cards(it)) )}
     </section>
   )
 }

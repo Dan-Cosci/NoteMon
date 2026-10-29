@@ -4,7 +4,7 @@ export const service = (repo: ReturnType<typeof repository>) => {
   return {
     getNotes: () => {
       const data = repo.test()
-      return data.values()
+      return data
     },
 
     addNote: async (content: NoteResponse) => {

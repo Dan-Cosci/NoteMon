@@ -25,7 +25,7 @@ export const repository = (db: Database) => {
 
 
   return {
-    test: () => db.query("SELECT * FROM notes"),
+    test: () => db.query("SELECT * FROM notes").all(),
     getNotes: (user_id: string) => getUserNotes.all({ $user: user_id }),
     createNote: (note: Note) => insert.run({
       $id: note.id,
