@@ -6,6 +6,10 @@ export const service = (repo: ReturnType<typeof repository>) => {
       const data = repo.test()
       return data
     },
+    getNote: (id: string) => {
+      const data = repo.getNote(id)
+      return data
+    },
 
     addNote: async (content: NoteResponse) => {
       const part: Note = {

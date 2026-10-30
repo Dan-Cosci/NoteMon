@@ -6,7 +6,7 @@ import { createBrowserRouter, Outlet } from "react-router";
 const Layout = () => {
   return (
     <>
-      <div className="bg-neutral-900 min-h-screen min-w-screen text-neutral-100 flex relative">
+      <div className="bg-neutral-900 min-h-screen min-w-screen text-neutral-100 flex relative px-[10vw] py-10">
         <Outlet />
         <FNav/>
       </div>
@@ -20,8 +20,8 @@ const App = createBrowserRouter([
     path: "/",
     Component: Layout,
     children: [
-      { index: true, element: <Editor /> },
-      { path: "notes", element: <NoteView /> },
+      { path: "notes/:id",element: <Editor /> },
+      { index: true, element: <NoteView /> },
     ]
   }
 ])

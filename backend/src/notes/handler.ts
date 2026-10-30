@@ -15,6 +15,12 @@ export const handler = (db: Database) => {
     const data = svc.getNotes()
     return c.json(data)
   })
+  r.get("/:id", (c) => {
+    const id = c.req.param("id")
+    const data = svc.getNote(id)
+
+    return c.json(data)
+  })
   r.post("/", async (c) => {
 
     const note = await c.req.json<NoteResponse>()

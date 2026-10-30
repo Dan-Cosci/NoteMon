@@ -1,11 +1,23 @@
+import { getNote } from "@/services/notes";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 export function Editor() {
+
+  const { id } = useParams()
   const [title, setTitle] = useState<string>("")
   const [content, setContent] = useState<string>("")
 
   useEffect(() => {
+    const init = async () => {
+      if (id === undefined) return
+      const data = await getNote(id)
 
+      setTitle(data.title)
+      setContent(data.content)
+    }
+
+    init()
   }, [])
 
 
@@ -25,7 +37,7 @@ export function Editor() {
       </div>
       <div className="h-full w-full">
         <textarea
-          content={content}
+          value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Writes what is on your mind..."
           className="appearance-none border-none bg-transparent resize-none hover:outline-none focus:outline-hidden w-full min-h-full"
