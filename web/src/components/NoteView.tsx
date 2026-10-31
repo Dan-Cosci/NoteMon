@@ -8,7 +8,6 @@ interface CardProp{
   content: string
   created_at: string
   updated_at: string,
-  onClick: () => void
 }
 
 const Cards = ({
@@ -17,11 +16,10 @@ const Cards = ({
   content,
   created_at,
   updated_at,
-  ...props
 }: CardProp) => {
   return (
     <Link to={`/notes/${id}`}>
-      <div className="rounded-lg bg-neutral-800 p-4 flex flex-col gap-4 hover:bg-neutral-700" onClick={props.onClick}>
+      <div className="rounded-lg bg-neutral-800 p-4 flex flex-col justify-between hover:bg-neutral-700 min-h-48" >
         <div>
           <h2 className="break-words font-bold text-xl">{title}</h2>
           <p className="break-words text-neutral-400">{content.slice(0, 64)}...</p>
@@ -36,8 +34,6 @@ const Cards = ({
 }
 
 function NoteView() {
-
-
   const [cards, setCards] = useState<CardProp[]>([])
 
   useEffect(() => {
@@ -54,9 +50,7 @@ function NoteView() {
     <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-min grow gap-2 p-2 ">
       {
         cards.map((it) => (
-          <Cards {...it} onClick={() => {
-
-          }}/>
+          <Cards {...it} />
         ))
       }
     </section>
