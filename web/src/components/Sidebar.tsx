@@ -8,6 +8,16 @@ const Links = [
 
 ]
 
+const Modules = () => {
+  return (
+    <div>
+      <nav>
+
+      </nav>
+    </div>
+  )
+}
+
 export function Sidebar() {
 	return (
     <aside className="bg-neutral-800 border-r-2 border-neutral-700 text-neutral-100 hidden lg:block min-w-[15vw]">
@@ -17,7 +27,7 @@ export function Sidebar() {
       <nav>
         {Links.map(el => (
           <NavLink to={el.path} >
-            { el.name}
+            { el.name }
           </NavLink>
         ))}
       </nav>
