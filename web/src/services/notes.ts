@@ -10,3 +10,7 @@ export const getNote = async (id: string) => {
   const data = await instance.get(`/notes/${id}`)
   return data.data
 }
+
+// export const updateNote = async () => {
+//   const data = await instance.patch()
+// }

@@ -5,6 +5,7 @@ import { create } from "zustand"
 interface store {
   Notes: Note[]
   GetNotes: () => Promise<void>
+  UpdateNote: () => Promise<void>
 }
 
 
@@ -22,7 +23,8 @@ const NoteStore = create<store>()((set) => {
       } finally {
         console.log("success")
       }
-    }
+    },
+    UpdateNote: async () => { }
   }
 })
 
