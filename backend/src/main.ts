@@ -3,22 +3,25 @@ import {cors} from 'hono/cors'
 import connect from './db/db'
 
 import { handler as notesHandler } from './notes/handler'
-import { handler as authHandler } from './auth/handler'
 import { logger } from 'hono/logger';
+import Config from './core/config'
+import { createAuth } from './auth/auth'
 
-const db = await connect()
+const cfg = Config()
+
+const db = await connect(cfg)
+const auth = createAuth(cfg, db)
 const app = new Hono()
 
 app.use(logger())
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: cfg.frontend_url,
   allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowHeaders: ["Content-Type", "Authorization"],
 }))
 
 const api = new Hono().basePath("/api/v1")
 
-api.route("/auth", authHandler(db))
 api.route("/notes", notesHandler(db))
 
 app.route("/", api)

@@ -1,6 +1,8 @@
 import Editor from "@/components/Editor";
 import FNav from "@/components/FNav";
+import Login from "@/components/Login";
 import NoteView from "@/components/NoteView";
+import Register from "@/components/Register";
 import Sidebar from "@/components/Sidebar";
 import { createBrowserRouter, Outlet } from "react-router";
 
@@ -19,8 +21,8 @@ const Layout = () => {
 const AuthLayout = () => {
   return (
     <>
-      <main className="">
-
+      <main className="bg-neutral-900 min-h-screen w-full text-neutral-100 flex justify-center items-center relative px-[1vw] md:px-[5vw] py-10">
+       <Outlet/>
       </main>
     </>
   )
@@ -36,11 +38,11 @@ const App = createBrowserRouter([
       { index: true, element: <NoteView /> },
     ]
   }, {
-    path: "/auth",
+    path: "auth",
     Component: AuthLayout,
     children: [
-      { path: "/login" , element: <h1>hello</h1> },
-      { path: "/register" , element: <h1>hello</h1> }
+      { path: "login" , element: <Login/> },
+      { path: "register" , element: <Register/> }
     ]
 
   }

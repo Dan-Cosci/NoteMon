@@ -4,6 +4,7 @@
     "dev": "bun run --hot src/main.ts"
   },
   "dependencies": {
+    "better-auth": "^1.7.18",
     "hono": "^4.13.14"
   },
   "devDependencies": {

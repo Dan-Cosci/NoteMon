@@ -1,10 +1,11 @@
 
 import { Database, SQLiteError } from "bun:sqlite"
+import Config from "../core/config";
 
-const connect = async () => {
+const connect = async (config: ReturnType<typeof Config>) => {
   try {
     console.log("initializing database connection")
-    const db = new Database("db.sqlite")
+    const db = new Database(config.database)
 
     const schema = await Bun.file("./src/db/schema.sql").text()
     for (const sch of schema.split(";")) {
