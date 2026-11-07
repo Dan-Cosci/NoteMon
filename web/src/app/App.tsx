@@ -16,6 +16,16 @@ const Layout = () => {
   )
 }
 
+const AuthLayout = () => {
+  return (
+    <>
+      <main className="">
+
+      </main>
+    </>
+  )
+}
+
 
 const App = createBrowserRouter([
   {
@@ -25,6 +35,14 @@ const App = createBrowserRouter([
       { path: "notes/:id",element: <Editor /> },
       { index: true, element: <NoteView /> },
     ]
+  }, {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      { path: "/login" , element: <h1>hello</h1> },
+      { path: "/register" , element: <h1>hello</h1> }
+    ]
+
   }
 ])
 
