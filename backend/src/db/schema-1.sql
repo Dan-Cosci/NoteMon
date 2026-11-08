@@ -1,13 +1,13 @@
 
 CREATE TABLE IF NOT EXISTS notes (
     id TEXT PRIMARY KEY NOT NULL UNIQUE,
-    user_id TEXT UNIQUE,
+    user_id TEXT,
     title TEXT NOT NULL,
     content TEXT NOT NULL DEFAULT '',
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deleted_at TEXT DEFAULT NULL
+    deleted_at TEXT DEFAULT NULL,
 
-    -- FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
+    FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS "user" (
     "id" text not null primary key,

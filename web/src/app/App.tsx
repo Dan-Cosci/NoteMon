@@ -4,9 +4,13 @@ import Login from "@/components/Login";
 import NoteView from "@/components/NoteView";
 import Register from "@/components/Register";
 import Sidebar from "@/components/Sidebar";
-import { createBrowserRouter, Outlet } from "react-router";
+import AuthStore from "@/store/AuthStore";
+import { createBrowserRouter, Navigate, Outlet } from "react-router";
 
 const Layout = () => {
+  const { isAuthenticated } = AuthStore()
+
+  if (!isAuthenticated) return <Navigate to="/auth/login" replace />
   return (
     <>
       <Sidebar />
@@ -19,6 +23,9 @@ const Layout = () => {
 }
 
 const AuthLayout = () => {
+  const { isAuthenticated } = AuthStore()
+
+  if (isAuthenticated) return <Navigate to="/" replace />
   return (
     <>
       <main className="bg-neutral-900 min-h-screen w-full text-neutral-100 flex justify-center items-center relative px-[1vw] md:px-[5vw] py-10">

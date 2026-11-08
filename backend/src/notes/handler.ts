@@ -4,14 +4,16 @@ import { Note, NoteResponse, repository } from "./repo";
 import { service } from "./service";
 
 export const handler = (db: Database) => {
-  const r = new Hono()
+  const r = new Hono<{
+    Variables: { userId:string }
+  }>()
 
   const repo = repository(db)
   const svc = service(repo)
 
   // routes
   r.get("/", (c) => {
-    const userId = c.req.raw.headers.get("userId")
+    const userId = c.get("userId")
     if (!userId) return c.json({message:"user not found"}, 404)
     const data = svc.getNotes(userId)
     return c.json(data)

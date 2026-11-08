@@ -1,14 +1,16 @@
 
+import AuthStore from "@/store/AuthStore"
 import { useState } from "react"
 
 export default function Login() {
+  const { login } = AuthStore()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [show, setShow] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(email, password)
+    await login(email,password)
   }
 
   return (

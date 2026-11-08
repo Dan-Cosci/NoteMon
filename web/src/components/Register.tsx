@@ -1,7 +1,10 @@
 
+import AuthStore from "@/store/AuthStore"
 import { useState } from "react"
 
 export default function Register() {
+  const { register } = AuthStore()
+
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -10,12 +13,12 @@ export default function Register() {
 
   const passwordsMatch = password === repassword
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!passwordsMatch) return
 
-    console.log({ email, username, password })
+    await register(email, password, username)
   }
 
   return (
