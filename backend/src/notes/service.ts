@@ -2,8 +2,8 @@ import { NoteResponse, Note, repository } from "./repo";
 
 export const service = (repo: ReturnType<typeof repository>) => {
   return {
-    getNotes: () => {
-      const data = repo.test()
+    getNotes: (userId:string) => {
+      const data = repo.getNotes(userId)
       return data
     },
     getNote: (id: string) => {

@@ -7,7 +7,7 @@ const connect = async (config: ReturnType<typeof Config>) => {
     console.log("initializing database connection")
     const db = new Database(config.database)
 
-    const schema = await Bun.file("./src/db/schema.sql").text()
+    const schema = await Bun.file("./src/db/schema-1.sql").text()
     for (const sch of schema.split(";")) {
       if (sch.trim()) {
         db.run(sch)

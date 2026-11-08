@@ -11,8 +11,9 @@ export const handler = (db: Database) => {
 
   // routes
   r.get("/", (c) => {
-
-    const data = svc.getNotes()
+    const userId = c.req.raw.headers.get("userId")
+    if (!userId) return c.json({message:"user not found"}, 404)
+    const data = svc.getNotes(userId)
     return c.json(data)
   })
   r.get("/:id", (c) => {

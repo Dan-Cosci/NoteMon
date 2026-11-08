@@ -6,6 +6,7 @@ import { handler as notesHandler } from './notes/handler'
 import { logger } from 'hono/logger';
 import Config from './core/config'
 import { createAuth } from './auth/auth'
+import Authenticate from './middlewares/authenticate';
 
 const cfg = Config()
 
@@ -22,7 +23,9 @@ app.use(cors({
 
 const api = new Hono().basePath("/api/v1")
 
-api.route("/notes", notesHandler(db))
+api.all("/auth/*", (c) => auth.handler(c.req.raw))
+api.use(Authenticate(auth)).route("/notes", notesHandler(db))
+
 
 app.route("/", api)
 
