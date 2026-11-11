@@ -1,4 +1,4 @@
-import { Login, Register } from "@/services";
+import { GetSession, Login, Register } from "@/services";
 import { create } from "zustand";
 
 interface AuthUser {
@@ -27,7 +27,15 @@ const AuthStore = create<store>()((set) => ({
   isLoading: false,
   isAuthenticated: false,
 
-  checkSession: async () => { },
+  checkSession: async () => {
+    const session = await GetSession()
+    if(!session) return
+
+    set({
+      user: session.user,
+      isAuthenticated: true
+    })
+  },
 
   login: async (eml: string, pwd: string) => {
     const res = await Login(eml, pwd)

@@ -14,3 +14,9 @@ export const Register = async (email: string, password: string, name: string) =>
   })
   return res.data
 }
+
+export const GetSession = async () => {
+  const res = await instance.get("/auth/get-session")
+
+  return res.data
+}

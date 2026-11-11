@@ -5,10 +5,20 @@ import NoteView from "@/components/NoteView";
 import Register from "@/components/Register";
 import Sidebar from "@/components/Sidebar";
 import AuthStore from "@/store/AuthStore";
+import { useEffect } from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router";
 
 const Layout = () => {
-  const { isAuthenticated } = AuthStore()
+  const { isAuthenticated, checkSession } = AuthStore()
+
+  useEffect(() => {
+    const init = async () => {
+      await checkSession()
+    }
+
+    init()
+  },[])
+
 
   if (!isAuthenticated) return <Navigate to="/auth/login" replace />
   return (
@@ -42,6 +52,7 @@ const App = createBrowserRouter([
     Component: Layout,
     children: [
       { path: "notes/:id",element: <Editor /> },
+      { path: "create",element: <Editor /> },
       { index: true, element: <NoteView /> },
     ]
   }, {

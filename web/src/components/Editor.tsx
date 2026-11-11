@@ -12,13 +12,12 @@ export function Editor() {
     const init = async () => {
       if (id === undefined) return
       const data = await getNote(id)
-
       setTitle(data.title)
       setContent(data.content)
     }
 
     init()
-  }, [])
+  })
 
 
 	return (
