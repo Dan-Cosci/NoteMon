@@ -1,24 +1,104 @@
-import { getNote } from "@/services/notes";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useDebouce } from "@/hooks/UseDebounce";
+import { createNote, getNote, updateNote } from "@/services/notes";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 export function Editor() {
 
-  const { id } = useParams()
+  const navigate = useNavigate()
+  const { slug } = useParams<{ slug?: string }>()
+  const [initialized, setInitialized] = useState(false)
+
+  const [noteId, setNoteId] = useState<string | null>(null)
   const [title, setTitle] = useState<string>("")
   const [content, setContent] = useState<string>("")
 
+  const lastSaved = useRef<{title: string, content:string} | null>(null)
+  const creatingRef = useRef(false)
+
+  const debouncedTitle = useDebouce(title, 800)
+  const debouncedContent = useDebouce(content, 800)
+
+
+  // note initialization when note is present
   useEffect(() => {
     const init = async () => {
-      if (id === undefined) return
-      const data = await getNote(id)
-      setTitle(data.title)
-      setContent(data.content)
+      if (!slug) {
+        setInitialized(true)
+        return
+      }
+
+      try {
+        const data = await getNote(slug)
+        setNoteId(data.id)
+        setTitle(data.title)
+        setContent(data.content)
+
+        lastSaved.current = { title: data.title, content: data.content }
+
+      } catch (err) {
+       	console.error(err);
+      } finally {
+        setInitialized(true)
+
+      }
     }
 
     init()
-  })
+  }, [slug])
 
+  // on create
+  useEffect(() => {
+    if (!initialized || noteId || creatingRef.current) return
+    if (!debouncedTitle.trim()) return
+
+
+    const create = async () => {
+      creatingRef.current = true
+
+      try {
+        console.log("I am saving your shit")
+        const note = await createNote({ title: debouncedTitle, content: debouncedContent })
+        setNoteId(note.id)
+        lastSaved.current = { title: note.title, content: note.content }
+
+        navigate(`/notes/${note.id}`, {replace:true})
+
+      } catch (err) {
+        console.error(err);
+      } finally {
+        creatingRef.current = false
+      }
+    }
+
+    create()
+  }, [debouncedContent, debouncedTitle, noteId])
+
+  // updating the note
+  useEffect(() => {
+    if (!noteId || !initialized) return
+
+    const prev = lastSaved.current
+    if (prev?.title === debouncedTitle && prev?.content === debouncedContent) return
+
+    const update = async () => {
+      try {
+        const data = await updateNote({
+          id:noteId,
+          content: debouncedContent,
+          title:debouncedTitle
+        })
+
+        lastSaved.current = {title: data.title, content:data.content}
+      } catch (err) {
+        console.error(err);
+      } finally {
+
+      }
+    }
+
+    update()
+  },[debouncedContent, debouncedTitle, noteId])
 
 	return (
     <article className="flex flex-col px-8 py-6 grow">

@@ -25,9 +25,11 @@ export const handler = (db: Database) => {
     return c.json(data)
   })
   r.post("/", async (c) => {
+    const userId = c.get("userId")
+    if (!userId) return c.json({message:"user not found"}, 404)
 
     const note = await c.req.json<NoteResponse>()
-    const data = await svc.addNote(note)
+    const data = await svc.addNote(userId, note)
 
     return c.json(data)
   })
@@ -39,7 +41,13 @@ export const handler = (db: Database) => {
   })
 
   r.patch("/:id", async (c) => {
+    const id = c.req.param("id")
+    const userId = c.get("userId")
+    if (!userId) return c.json({ message: "user not found" }, 404)
 
+    const note = await c.req.json<NoteResponse>()
+    const data = await svc.updateNote(userId, id, note)
+    return c.json(data)
   })
 
   return r

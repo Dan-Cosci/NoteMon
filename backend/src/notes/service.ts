@@ -11,21 +11,32 @@ export const service = (repo: ReturnType<typeof repository>) => {
       return data
     },
 
-    addNote: async (content: NoteResponse) => {
+    addNote: async (userId: string, content: NoteResponse) => {
       const part: Note = {
+        user_id: userId,
         id: crypto.randomUUID(),
         ...content,
         created_at: new Date(),
       }
 
-      const data = repo.createNote(part)
+      repo.createNote(part)
 
-      return data
+      return part
     },
 
     deleteNote: (id: string) => {
       return repo.deleteNote(id)
-    }
+    },
 
+    updateNote: async (userId: string,noteId: string, content: NoteResponse) => {
+      const part: Note = {
+        user_id: userId,
+        id: noteId,
+        ...content
+      }
+
+      repo.updateNote(part)
+      return part
+    }
   }
 }

@@ -51,7 +51,7 @@ const App = createBrowserRouter([
     path: "/",
     Component: Layout,
     children: [
-      { path: "notes/:id",element: <Editor /> },
+      { path: "notes/:slug",element: <Editor /> },
       { path: "create",element: <Editor /> },
       { index: true, element: <NoteView /> },
     ]

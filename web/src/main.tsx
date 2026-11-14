@@ -6,8 +6,9 @@ import { RouterProvider } from 'react-router'
 import { Toaster } from "react-hot-toast"
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Toaster />
+<>
+  <Toaster />
     <RouterProvider router={App} />
-  </StrictMode>,
+
+</>
 )
