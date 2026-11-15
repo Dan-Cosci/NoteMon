@@ -24,7 +24,7 @@ const Layout = () => {
   return (
     <>
       <Sidebar />
-      <main className="bg-neutral-900 min-h-screen w-full text-neutral-100 flex relative px-[1vw] md:px-[5vw] py-10">
+      <main className="bg-neutral-950 h-screen w-full text-neutral-100 flex flex-col relative overflow-scroll">
         <Outlet />
         <FNav/>
       </main>
@@ -38,7 +38,7 @@ const AuthLayout = () => {
   if (isAuthenticated) return <Navigate to="/" replace />
   return (
     <>
-      <main className="bg-neutral-900 min-h-screen w-full text-neutral-100 flex justify-center items-center relative px-[1vw] md:px-[5vw] py-10">
+      <main className="bg-neutral-900 min-h-screen w-full text-neutral-100 flex justify-center items-center relative ">
        <Outlet/>
       </main>
     </>

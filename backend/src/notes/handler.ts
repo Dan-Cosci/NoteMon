@@ -34,6 +34,9 @@ export const handler = (db: Database) => {
     return c.json(data)
   })
   r.delete("/:id", (c) => {
+    const userId = c.get("userId")
+    if (!userId) return c.json({message:"user not found"}, 404)
+
     const id = c.req.param("id")
     const data = svc.deleteNote(id)
 

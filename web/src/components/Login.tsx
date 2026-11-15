@@ -1,6 +1,7 @@
 
 import AuthStore from "@/store/AuthStore"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 export default function Login() {
   const { login } = AuthStore()
@@ -10,7 +11,7 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await login(email,password)
+    await login(email,password).then(()=>toast.success("logged in")).catch((er:ErrorEvent)=>toast.error(er.message))
   }
 
   return (

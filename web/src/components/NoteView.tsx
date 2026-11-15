@@ -1,6 +1,7 @@
 import NoteStore from "@/store/NoteStore";
 import type { Note } from "@/types";
 import { useEffect, useState } from "react"
+import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router"
 
 const Cards = ({
@@ -12,14 +13,14 @@ const Cards = ({
 }: Note) => {
   return (
     <Link to={`/notes/${id}`}>
-      <div className="rounded-lg bg-neutral-800 p-4 flex flex-col justify-between hover:bg-neutral-700 min-h-48" >
-        <div>
+      <div className="rounded-lg bg-neutral-900 p-4 flex flex-col justify-between hover:bg-neutral-700 min-w-2xs min-h-52 border-neutral-700 border-1" >
+        <div className="flex flex-col gap-2">
           <h2 className="break-words font-bold text-xl">{title}</h2>
-          <p className="break-words text-neutral-400">{content.slice(0, 64)}...</p>
+          <p className="break-words text-neutral-400">{content.slice(0, 80)}...</p>
         </div>
-        <div className="flex justify-between">
-          <p className="break-words text-sm text-neutral-600">{created_at}</p>
-          <p className="break-words text-sm text-neutral-600">{updated_at}</p>
+        <div className="flex justify-between items-center">
+          <p className="border-2 border-neutral-700 p-2 rounded-md text-xs text-neutral-400">{ "Untitled"}</p>
+          <p className="break-words text-xs text-neutral-400">{new Date(created_at).toLocaleDateString()}</p>
         </div>
       </div>
     </Link>
@@ -39,13 +40,20 @@ function NoteView() {
   }, [])
 
   return (
-    <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-min grow gap-2 p-2 ">
-      {
-        Notes.map((it) => (
-          <Cards {...it} />
-        ))
-      }
-    </section>
+    <>
+      <section className="border-b-2 border-neutral-700 px-[5vw] flex justify-center items-center gap-6 p-4">
+        <input className="flex-1 focus:outline-none border-2 border-neutral-800 py-2 px-4 rounded-full" type="text" />
+        <button className="bg-neutral-300 text-neutral-900 py-2 px-4 rounded-full flex items-center gap-3 justify-center"> <FaPlus/> New Note</button>
+      </section>
+      <section className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-min grow gap-2 p-2 px-[5vw]">
+        {
+          Notes.map((it) => (
+            <Cards {...it} />
+          ))
+        }
+      </section>
+
+    </>
   )
 }
 

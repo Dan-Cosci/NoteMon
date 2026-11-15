@@ -1,21 +1,20 @@
 import type { ReactNode } from "react";
 import AuthStore from "@/store/AuthStore";
-import { FaHome } from "react-icons/fa";
-import { HiOutlineDocumentAdd } from "react-icons/hi";
+import { FaFolder, FaHome, FaUser } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { NavLink } from "react-router";
 import NoteStore from "@/store/NoteStore";
 
 const MainLinks = [
   { name: "Home", path: "/", icon: <FaHome /> },
-  { name: "Dashboard", path: "/", icon: <LuLayoutDashboard />},
-  { name: "Create Note", path: "/create", icon: <HiOutlineDocumentAdd /> },
+  { name: "Dashboard", path: "/", icon: <LuLayoutDashboard /> },
+  { name: "Profile", path: "/profile", icon: <FaUser/>}
 ]
 
 const Notebooks = [
-  { name: "Unlabled", path: "/", icon: <FaHome /> },
-  { name: "Personal", path: "/", icon: <LuLayoutDashboard />},
-  { name: "Work", path: "/", icon: <HiOutlineDocumentAdd /> },
+  { name: "Unlabled", path: "/", icon: <FaFolder /> },
+  { name: "Personal", path: "/", icon: <FaFolder />},
+  { name: "Work", path: "/", icon: <FaFolder /> },
 ]
 
 const NavModules = ({children, header = "" }: {children: ReactNode, header?: string}) => {
@@ -34,13 +33,13 @@ export function Sidebar() {
   const { Notes } = NoteStore()
 
 	return (
-    <aside className="bg-neutral-800 border-r-2 border-neutral-700 text-neutral-100 hidden lg:flex flex-col min-w-[16vw] p-4">
+    <aside className="bg-neutral-900 border-r-2 border-neutral-700 text-neutral-100 hidden lg:flex flex-col min-w-2xs p-4">
       <div className="items-center flex gap-4 py-8">
         <div className=" flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-400/10 text-neutral-100">
           <span className="text-2xl font-bold">N</span>
         </div>
         <div className="text-center">
-          <span className="text-xl font-bold">WRITE A STORY</span>
+          <span className="text-lg font-bold">WRITE A STORY</span>
         </div>
       </div>
       <nav className="flex flex-col gap-6">
