@@ -1,4 +1,4 @@
-import { GetSession, Login, Register } from "@/services";
+import { GetSession, Login, Logout, Register } from "@/services";
 import { create } from "zustand";
 
 interface AuthUser {
@@ -18,7 +18,8 @@ interface store {
 
   checkSession: () => Promise<void>
   login: (email:string, password:string) => Promise<void>
-  register: (email:string, password:string, username:string) => Promise<void>
+  register: (email: string, password: string, username: string) => Promise<void>
+  logout: () => Promise<void>
 }
 
 
@@ -53,6 +54,13 @@ const AuthStore = create<store>()((set) => ({
     })
     console.log("register successful")
 
+  },
+  logout: async () => {
+    await Logout()
+    set({
+      user: null,
+      isAuthenticated: false,
+    })
   }
 
 }))

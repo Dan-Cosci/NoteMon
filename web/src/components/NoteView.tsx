@@ -2,7 +2,7 @@ import NoteStore from "@/store/NoteStore";
 import type { Note } from "@/types";
 import { useEffect, useState } from "react"
 import { FaPlus } from "react-icons/fa";
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 const Cards = ({
   id,
@@ -29,29 +29,49 @@ const Cards = ({
 
 function NoteView() {
   const { Notes, GetNotes } = NoteStore()
+  const navigate = useNavigate()
+  const [currNotes, setCurrNotes] = useState<Note[]>([])
+
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     const init = async () => {
       await GetNotes()
-
     }
-
     init()
   }, [])
+
+  useEffect(() => {
+    setCurrNotes(Notes)
+    setCurrNotes(Notes.filter((it)=>(it.title.includes(search) || it.content.includes(search))))
+
+  },[Notes,search])
 
   return (
     <>
       <section className="border-b-2 border-neutral-700 px-[5vw] flex justify-center items-center gap-6 p-4">
-        <input className="flex-1 focus:outline-none border-2 border-neutral-800 py-2 px-4 rounded-full" type="text" />
-        <button className="bg-neutral-300 text-neutral-900 py-2 px-4 rounded-full flex items-center gap-3 justify-center"> <FaPlus/> New Note</button>
+        <input
+          className="flex-1 focus:outline-none border-2 border-neutral-800 py-2 px-4 rounded-full"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+          type="text" />
+        <button
+          onClick={()=>navigate("/create")}
+          className="bg-neutral-300 text-neutral-900 py-2 px-4 rounded-full flex items-center gap-3 justify-center"> <FaPlus /> New Note</button>
       </section>
-      <section className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-min grow gap-2 p-2 px-[5vw]">
-        {
-          Notes.map((it) => (
-            <Cards {...it} />
-          ))
-        }
-      </section>
+      <section>
+        <div>
+          <h1>All Notes:</h1>
+
+        </div>
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-min grow gap-2 p-2 px-[5vw]">
+          {
+            currNotes.map((it) => (
+              <Cards key={it.id} {...it} />
+            ))
+          }
+        </div>
+     </section>
 
     </>
   )

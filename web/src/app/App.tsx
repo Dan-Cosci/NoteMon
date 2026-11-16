@@ -2,8 +2,10 @@ import Editor from "@/components/Editor";
 import FNav from "@/components/FNav";
 import Login from "@/components/Login";
 import NoteView from "@/components/NoteView";
+import Profile from "@/components/Profile";
 import Register from "@/components/Register";
 import Sidebar from "@/components/Sidebar";
+import { Logout } from "@/services";
 import AuthStore from "@/store/AuthStore";
 import { useEffect } from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router";
@@ -54,13 +56,14 @@ const App = createBrowserRouter([
       { path: "notes/:slug",element: <Editor /> },
       { path: "create",element: <Editor /> },
       { index: true, element: <NoteView /> },
+      {path: "profile", element:<Profile/>}
     ]
   }, {
     path: "auth",
     Component: AuthLayout,
     children: [
       { path: "login" , element: <Login/> },
-      { path: "register" , element: <Register/> }
+      { path: "register", element: <Register /> },
     ]
 
   }

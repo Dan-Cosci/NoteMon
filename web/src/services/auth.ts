@@ -20,3 +20,7 @@ export const GetSession = async () => {
 
   return res.data
 }
+
+export const Logout = async () => {
+  const res = await instance.post("/auth/sign-out")
+}
