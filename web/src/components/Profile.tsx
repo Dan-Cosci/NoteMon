@@ -1,7 +1,6 @@
 import AuthStore from "@/store/AuthStore";
 import { useState, type ReactNode } from "react";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router";
 
 const Container = ({ children }: {children:ReactNode}) => {
 
@@ -14,16 +13,12 @@ const Container = ({ children }: {children:ReactNode}) => {
 }
 
 export function Profile() {
-  const navigate = useNavigate()
   const { logout, user } = AuthStore()
 
   const [username, setUsername] = useState(user?.name)
   const [email, setEmail] = useState(user?.email)
 
 
-  const handleUpdate = async () => {
-
-  }
 
   const handleLogout = async () => {
     await logout()
@@ -40,7 +35,7 @@ export function Profile() {
               </div>
               <div>
                 <p>{user?.name}</p>
-                <p>Joined { new Date(user?.createdAt).toLocaleDateString() }</p>
+                <p>Joined { new Date(user?.createdAt ?? "").toLocaleDateString() }</p>
               </div>
             </div>
             <form action="" className="flex flex-col gap-1" onSubmit={(e) => { e.preventDefault(); console.log("saved") }}>

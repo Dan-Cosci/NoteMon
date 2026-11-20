@@ -7,6 +7,7 @@ import { logger } from 'hono/logger';
 import Config from './core/config'
 import { createAuth } from './auth/auth'
 import Authenticate from './middlewares/authenticate';
+import { serveStatic } from '@hono/bun';
 
 const cfg = Config()
 
@@ -18,18 +19,20 @@ console.log("Frontend URL:", cfg.frontend_url);
 app.use(logger())
 app.use(cors({
   // origin: cfg.frontend_url,
-  origin:["http://localhost:5173", "http://192.168.254.103:5173"],
+  origin:["http://localhost:5173", "http://192.168.254.103:5173", "http://localhost:8080"],
   allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }))
 
+// api routes
 const api = new Hono().basePath("/api/v1")
-
 api.all("/auth/*", (c) => auth.handler(c.req.raw))
 api.use(Authenticate(auth)).route("/notes", notesHandler(db))
-
-
 app.route("/", api)
+
+// serving static files
+app.use("/*", serveStatic({ root: "../web/dist" }))
+app.get("*", serveStatic({path:"../web/dist/index.html"}))
 
 export default app

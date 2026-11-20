@@ -1,7 +1,6 @@
 import NoteStore from "@/store/NoteStore";
 import type { Note } from "@/types";
 import { useEffect, useState } from "react"
-import { FaPlus } from "react-icons/fa";
 import { Link, useNavigate } from "react-router"
 
 const Cards = ({
@@ -9,8 +8,10 @@ const Cards = ({
   title,
   content,
   created_at,
-  updated_at,
 }: Note) => {
+
+
+
   return (
     <Link to={`/notes/${id}`}>
       <div className="rounded-lg bg-neutral-900 p-4 flex flex-col justify-between hover:bg-neutral-700 min-w-2xs min-h-52 border-neutral-700 border-1" >
@@ -20,7 +21,7 @@ const Cards = ({
         </div>
         <div className="flex justify-between items-center">
           <p className="border-2 border-neutral-700 p-2 rounded-md text-xs text-neutral-400">{ "Untitled"}</p>
-          <p className="break-words text-xs text-neutral-400">{new Date(created_at).toLocaleDateString()}</p>
+          <p className="break-words text-xs text-neutral-400">{created_at ? new Date(created_at).toLocaleDateString() : ""}</p>
         </div>
       </div>
     </Link>

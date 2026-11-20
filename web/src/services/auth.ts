@@ -22,5 +22,5 @@ export const GetSession = async () => {
 }
 
 export const Logout = async () => {
-  const res = await instance.post("/auth/sign-out")
+  await instance.post("/auth/sign-out")
 }

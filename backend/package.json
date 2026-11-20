@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot src/main.ts"
+    "dev": "bun run --hot src/main.ts",
+    "run": "bun run src/main.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.18",

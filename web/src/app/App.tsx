@@ -5,7 +5,6 @@ import NoteView from "@/components/NoteView";
 import Profile from "@/components/Profile";
 import Register from "@/components/Register";
 import Sidebar from "@/components/Sidebar";
-import { Logout } from "@/services";
 import AuthStore from "@/store/AuthStore";
 import { useEffect } from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router";

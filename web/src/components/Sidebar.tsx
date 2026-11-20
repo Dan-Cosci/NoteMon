@@ -1,9 +1,7 @@
 import type { ReactNode } from "react";
-import AuthStore from "@/store/AuthStore";
-import { FaFolder, FaHome, FaUser } from "react-icons/fa";
+import { FaFolder, FaUser } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { NavLink } from "react-router";
-import NoteStore from "@/store/NoteStore";
 
 const MainLinks = [
   { name: "Dashboard", path: "/", icon: <LuLayoutDashboard /> },
@@ -28,9 +26,6 @@ const NavModules = ({children, header = "" }: {children: ReactNode, header?: str
 }
 
 export function Sidebar() {
-  const { user } = AuthStore()
-  const { Notes } = NoteStore()
-
 	return (
     <aside className="bg-neutral-900 border-r-2 border-neutral-700 text-neutral-100 hidden lg:flex flex-col min-w-2xs p-4">
       <div className="items-center flex gap-4 py-8">
