@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios"
 import { toast } from "react-hot-toast";
 
 export const instance = axios.create({
-  baseURL: "http://localhost:8080/api/v1/",
+  baseURL: "http://192.168.254.103:8080/api/v1/",
   withCredentials: true
 })
 

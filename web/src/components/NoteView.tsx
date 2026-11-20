@@ -57,12 +57,11 @@ function NoteView() {
           type="text" />
         <button
           onClick={()=>navigate("/create")}
-          className="bg-neutral-300 text-neutral-900 py-2 px-4 rounded-full flex items-center gap-3 justify-center"> <FaPlus /> New Note</button>
+          className="bg-neutral-300 text-neutral-900 py-2 px-4 rounded-full flex items-center gap-3 justify-center">New Note</button>
       </section>
-      <section>
-        <div>
-          <h1>All Notes:</h1>
-
+      <section className="py-6">
+        <div className="px-[5vw] flex justify-between">
+          <h1 className="text-lg font-bold">All Notes:</h1>
         </div>
         <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 auto-rows-min grow gap-2 p-2 px-[5vw]">
           {

@@ -11,7 +11,9 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await login(email,password).then(()=>toast.success("logged in")).catch((er:ErrorEvent)=>toast.error(er.message))
+    await login(email, password)
+      .then(() => toast.success("logged in"))
+      .catch((er: ErrorEvent) => toast.error(er.message))
   }
 
   return (

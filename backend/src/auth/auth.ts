@@ -6,9 +6,10 @@ export const createAuth = (cfg: ReturnType<typeof Config>, db: Database) => {
   return betterAuth({
     database: db,
     secret: cfg.better_auth_secret,
-    trustedOrigins: [cfg.frontend_url],
+    trustedOrigins: [cfg.frontend_url,"http://192.168.254.103:5173"],
     basePath: "/api/v1/auth",
-    baseURL: "http://localhost:8080",
+    baseURL: "http://192.168.254.103:5173",
+
 
     emailAndPassword: {
       enabled:true

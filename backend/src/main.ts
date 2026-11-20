@@ -17,7 +17,8 @@ console.log("Frontend URL:", cfg.frontend_url);
 
 app.use(logger())
 app.use(cors({
-  origin: cfg.frontend_url,
+  // origin: cfg.frontend_url,
+  origin:["http://localhost:5173", "http://192.168.254.103:5173"],
   allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowHeaders: ["Content-Type", "Authorization"],
   credentials: true

@@ -6,7 +6,6 @@ import { NavLink } from "react-router";
 import NoteStore from "@/store/NoteStore";
 
 const MainLinks = [
-  { name: "Home", path: "/", icon: <FaHome /> },
   { name: "Dashboard", path: "/", icon: <LuLayoutDashboard /> },
   { name: "Profile", path: "/profile", icon: <FaUser/>}
 ]
